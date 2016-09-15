@@ -4,7 +4,6 @@ require 'eyeballs'
 require 'database_cleaner'
 
 RSpec.configure do |config|
-   require "pry"; binding.pry
   config.before(:suite) do
     ActiveRecord::Base.establish_connection(
       adapter: "postgresql",
@@ -13,6 +12,12 @@ RSpec.configure do |config|
       password: ENV['POSTGRES_DB_PASSWORD'],
       host: 'localhost'
     )
+    ActiveRecord::Base.connection.execute <<-SQL
+      CREATE TABLE IF NOT EXISTS foo (
+        id INTEGER NOT NULL PRIMARY KEY,
+        name TEXT
+      );
+    SQL
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
   end 
