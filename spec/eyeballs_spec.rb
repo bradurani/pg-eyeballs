@@ -1,6 +1,5 @@
 require 'spec_helper'
 
-class Foo < ActiveRecord::Base; end
 
 describe Eyeballs do
   it 'has a version number' do
