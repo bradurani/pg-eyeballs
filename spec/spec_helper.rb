@@ -13,7 +13,7 @@ RSpec.configure do |config|
       host: 'localhost'
     )
     ActiveRecord::Base.connection.execute <<-SQL
-      CREATE TABLE IF NOT EXISTS foo (
+      CREATE TABLE IF NOT EXISTS foos (
         id INTEGER NOT NULL PRIMARY KEY,
         name TEXT
       );
