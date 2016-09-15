@@ -5,10 +5,17 @@ module Eyeballs
       @relation = relation
     end
 
-    def explain
-      ActiveRecord::ExplainRegistry.queries.each do |query|
-
+    def explain(format: :string)
+      queries = @relation.send(:collecting_queries_for_explain) do
+        @relation.send(:exec_queries)
       end
+      queries.each do |query|
+        explain_query(query)
+      end
+    end
+
+    def explain_query(query)
+
     end
 
     def inspect
