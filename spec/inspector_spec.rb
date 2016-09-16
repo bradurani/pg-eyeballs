@@ -4,7 +4,7 @@ describe Eyeballs::Inspector do
 
   let(:foo){ Foo.all.eyeballs }
   let(:foo_bar) do
-    Foo.all.preload(:bars).tap { |f| f.first.bars }.eyeballs
+    Foo.all.preload(:bars).eyeballs
   end
 
   describe 'inspect' do
@@ -43,9 +43,6 @@ describe Eyeballs::Inspector do
     it 'displays class string' do
       expect(foo.to_s).to include 'Eyeballs::Inspector: #<Foo::ActiveRecord_Relation:0x'
     end
-     
-    
-
   end
 
   # describe 'explain' do
