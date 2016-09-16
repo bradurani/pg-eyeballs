@@ -12,13 +12,15 @@ end
 
 RSpec.configure do |config|
   config.before(:suite) do
-    ActiveRecord::Base.establish_connection(
+    connection_opts = {
       adapter: "postgresql",
       database: ENV["POSTGRES_DB_DATABASE"] || "eyeballs_test",
-      username: ENV['POSTGRES_DB_USERNAME'],
-      password: ENV['POSTGRES_DB_PASSWORD'],
       host: 'localhost'
-    )
+    }
+    connection_opts[:username] = ENV['POSTGRES_DB_USERNAME'] if ENV['POSTGRES_DB_USERNAME']
+    connection_opts[:password] = ENV['POSTGRES_DB_PASSWORD'] if ENV['POSTGRES_DB_PASSWORD'] 
+
+    ActiveRecord::Base.establish_connection(connection_opts)
 
     ActiveRecord::Base.connection.execute 'DROP TABLE IF EXISTS bars;'
     ActiveRecord::Base.connection.execute 'DROP TABLE IF EXISTS foos;'
