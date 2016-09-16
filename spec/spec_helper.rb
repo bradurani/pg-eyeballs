@@ -3,7 +3,12 @@ $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 require 'eyeballs'
 require 'database_cleaner'
 
-class Foo < ActiveRecord::Base; end
+class Foo < ActiveRecord::Base
+  has_many :bars
+end
+class Bar < ActiveRecord::Base
+  belongs_to :foo
+end
 
 RSpec.configure do |config|
   config.before(:suite) do
@@ -15,16 +20,27 @@ RSpec.configure do |config|
       host: 'localhost'
     )
 
+    ActiveRecord::Base.connection.execute 'DROP TABLE IF EXISTS bars;'
     ActiveRecord::Base.connection.execute 'DROP TABLE IF EXISTS foos;'
+
     ActiveRecord::Base.connection.execute <<-SQL
       CREATE TABLE foos (
         id INTEGER NOT NULL PRIMARY KEY,
         name TEXT
       );
     SQL
+    ActiveRecord::Base.connection.execute 'INSERT INTO foos VALUES (1, \'one\')'
+
+    ActiveRecord::Base.connection.execute <<-SQL
+      CREATE TABLE bars (
+        id INTEGER NOT NULL PRIMARY KEY,
+        foo_id INTEGER NOT NULL REFERENCES foos (id),
+        name TEXT
+      );
+    SQL
+    ActiveRecord::Base.connection.execute 'INSERT INTO bars VALUES (1,1, \'one\')'
 
     DatabaseCleaner.strategy = :transaction
-    DatabaseCleaner.clean_with(:truncation)
   end 
 
   config.around(:each) do |example|
