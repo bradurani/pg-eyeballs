@@ -45,9 +45,9 @@ describe Eyeballs::Inspector do
     end
   end
 
-  # describe 'explain' do
-  #   it 'outputs explain' do
-  #     expect(Foo.all.eyeballs.explain).to include 'EXPLAIN for: SELECT "foos".* FROM "foos"'
-  #   end
-  # end
+  describe 'explain' do
+    it 'outputs explain' do
+      expect(Foo.all.eyeballs.explain).to include 'EXPLAIN for: SELECT "foos".* FROM "foos"'
+    end
+  end
 end
