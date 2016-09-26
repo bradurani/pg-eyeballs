@@ -66,6 +66,13 @@ describe Eyeballs::Inspector do
         "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFER,FORMAT TEXT) SELECT \"bars\".* FROM \"bars\" WHERE \"bars\".\"foo_id\" IN (1)"
       ]
     end
+
+    it 'generates explain query given options and format' do
+
+      expect(foo.explain_queries(format: :json, options: [:analyze])).to eql [
+        "EXPLAIN (ANALYZE,FORMAT JSON) SELECT \"foos\".* FROM \"foos\""
+      ]
+    end
   end
 
 end
