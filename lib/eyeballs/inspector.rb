@@ -8,24 +8,21 @@ module Eyeballs
       @relation = relation
     end
 
-    def explain(format: :text, options: OPTIONS)
+    def explain_queries(format: :text, options: OPTIONS)
       validate_format!(format)
       validate_options!(options)
-      @explain ||= queries.each do |query|
-        explain_query(query)
+      @explain ||= queries.map do |query|
+        explain_query(query, format, options)
       end
     end
 
-    def explain_query(query)
-
-    end
 
     def queries
       @queries ||= query_array.flatten.select(&:present?)
     end
 
     def inspect
-      @relation.explain
+      explain
     end
 
     def to_s
@@ -54,6 +51,13 @@ module Eyeballs
       end
     end
 
+    def explain_query(query, format, options)
+     "EXPLAIN (#{explain_options(format, options)}) #{query}" 
+    end
+
+    def explain_options(format, options)
+      options.map(&:upcase).tap { |a| a << "FORMAT #{format.upcase}" }.join(',')
+    end
 
   end
 end
