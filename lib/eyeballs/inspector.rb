@@ -86,7 +86,8 @@ module Eyeballs
       sql = query_binding[0]
       values = query_binding[1].map do |b|
         cast_type = b[0].cast_type
-        cast_type.type_cast(b[1])
+        cast_value = cast_type.type_cast_for_database(b[1])
+        cast_value.is_a?(String) ? "'#{cast_value}'" : cast_value
       end
       values.each.with_index.reduce(sql) do |sql,(value, index)|
         sql.sub("$#{index + 1}", value.to_s)

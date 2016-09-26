@@ -65,6 +65,10 @@ describe Eyeballs::Inspector do
     it 'generates sql with integer param' do
       expect(Foo.where(id: 1).eyeballs.explain_queries[0]).to eql "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"foos\".* FROM \"foos\" WHERE \"foos\".\"id\" = 1"
     end
+    
+    it 'generates sql with string param' do
+      expect(Foo.where(name: 'brad').eyeballs.explain_queries[0]).to eql "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"foos\".* FROM \"foos\" WHERE \"foos\".\"name\" = 'brad'"
+    end
   end
 
   describe :explain do
