@@ -27,7 +27,7 @@ module Eyeballs
     end
 
     def inspect
-      explain
+      explain.join("\n\n")
     end
 
     def to_s

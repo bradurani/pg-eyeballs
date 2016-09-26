@@ -7,20 +7,6 @@ describe Eyeballs::Inspector do
     Foo.all.preload(:bars).eyeballs
   end
 
-  # describe :inspect do
-  #   context :foo do
-  #     it 'outputs the query plan' do
-  #       expect(foo.inspect).to include 'EXPLAIN for: SELECT "foos".* FROM "foos"'
-  #     end
-  #   end
-  #
-  #   context :foo_bar do
-  #     it 'outputs the query plan' do
-  #       expect(foo_bar.inspect).to include 'EXPLAIN for: SELECT "foos".* FROM "foos"'
-  #       expect(foo_bar.inspect).to include 'EXPLAIN for: SELECT "bars".* FROM "bars"'
-  #     end
-  #   end
-  # end
 
   describe :queries do
     context :foo do
@@ -87,6 +73,16 @@ describe Eyeballs::Inspector do
       expect(explain_array[0]).to include "Seq Scan on public.foos  (cost="
       expect(explain_array[1]).to include "Seq Scan on public.bars  (cost="
     end
+  end
+
+  describe :inspect do
+    context :foo do
+      it 'concatenates the query plans with blank line' do
+        expect(foo_bar.inspect).to include 'Seq Scan on public.foos  (cost='
+        expect(foo_bar.inspect).to include 'Seq Scan on public.bars  (cost='
+      end
+    end
+
   end
 
 end
