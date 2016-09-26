@@ -76,6 +76,10 @@ describe Eyeballs::Inspector do
       expect(explain_array[0]).to include "Seq Scan on public.foos  (cost="
       expect(explain_array[1]).to include "Seq Scan on public.bars  (cost="
     end
+
+    it 'interpolates SQL args' do
+      expect(Foo.where(id: 1).eyeballs.explain[0]).to include "Index Scan using foos_pkey"
+    end
   end
 
   describe :inspect do

@@ -23,7 +23,9 @@ module Eyeballs
     end
 
     def queries
-      @queries ||= query_array.flatten.select(&:present?)
+      @queries ||= query_array.map do |query_binding|
+        build_sql(query_binding)
+      end
     end
 
     def to_s
@@ -69,15 +71,26 @@ module Eyeballs
     end
 
     def explain_query(query, format, options)
-     "EXPLAIN (#{explain_options(format, options)}) #{query}" 
+      "EXPLAIN (#{explain_options(format, options)}) #{query}" 
     end
 
     def explain_options(format, options)
       options.map(&:upcase).tap { |a| a << "FORMAT #{format.upcase}" }.join(',')
     end
-    
+
     def run_query(sql)
       @relation.connection.raw_connection.exec(sql).values.join("\n")
+    end
+
+    def build_sql(query_binding)
+      sql = query_binding[0]
+      values = query_binding[1].map do |b|
+        cast_type = b[0].cast_type
+        cast_type.type_cast(b[1])
+      end
+      values.each.with_index.reduce(sql) do |sql,(value, index)|
+        sql.sub("$#{index + 1}", value.to_s)
+      end
     end
   end
 end
