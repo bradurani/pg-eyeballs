@@ -1,11 +1,16 @@
 module Eyeballs
   class Inspector
 
+    OPTIONS = [:analyze, :verbose, :costs, :buffer]
+    FORMATS = [:text, :xml, :json, :yaml]
+
     def initialize(relation)
       @relation = relation
     end
 
-    def explain(format: :string)
+    def explain(format: :text, options: OPTIONS)
+      validate_format!(formst)
+      validate_options!(options)
       @explain ||= queries.each do |query|
         explain_query(query)
       end
@@ -35,5 +40,19 @@ module Eyeballs
       end
     end
 
+    def validate_format!(format)
+      unless format.in?(FORMATS)
+        raise Eyeballs::UnknownFormatError, "Unknown Format #{format}" 
+      end
+    end
+
+    def validate_options!(options)
+      options.each do |option|
+        unless option.in?(OPTIONS)
+          raise Eyeballs::UnknownOptionError, "Unknown Option #{option}" 
+        end
+      end
+    end
+
+
   end
-end
