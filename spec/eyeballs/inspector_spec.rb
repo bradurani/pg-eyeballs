@@ -84,4 +84,13 @@ describe Eyeballs::Inspector do
     end
   end
 
+  describe :to_json do
+    it 'returns json array' do
+       json_array = foo_bar.to_json.map{|json| JSON.parse(json)}
+      expect(json_array.length).to eql 2
+      expect(json_array[0][0]).to include('Plan')
+      expect(json_array[1][0]).to include('Plan')
+    end
+  end
+
 end
