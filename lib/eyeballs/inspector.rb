@@ -34,6 +34,10 @@ module Eyeballs
       explain(format: :json)
     end
 
+    def to_hash
+      to_json.map { |json| JSON.parse(json) }
+    end
+
     def inspect
       "Eyeballs::Inspector: #{@relation.to_s}"
     end
