@@ -1,11 +1,17 @@
 module Eyeballs
   class Inspector
 
-    OPTIONS = [:analyze, :verbose, :costs, :buffer]
+    OPTIONS = [:analyze, :verbose, :costs, :buffers]
     FORMATS = [:text, :xml, :json, :yaml]
 
     def initialize(relation)
       @relation = relation
+    end
+
+    def explain(format: :text, options: OPTIONS)
+      explain_queries(format: format, options: options).map do |query|
+        run_query(query)
+      end
     end
 
     def explain_queries(format: :text, options: OPTIONS)
@@ -15,7 +21,6 @@ module Eyeballs
         explain_query(query, format, options)
       end
     end
-
 
     def queries
       @queries ||= query_array.flatten.select(&:present?)
@@ -58,6 +63,9 @@ module Eyeballs
     def explain_options(format, options)
       options.map(&:upcase).tap { |a| a << "FORMAT #{format.upcase}" }.join(',')
     end
-
+    
+    def run_query(sql)
+      @relation.connection.raw_connection.exec(sql).values.join("\n")
+    end
   end
 end

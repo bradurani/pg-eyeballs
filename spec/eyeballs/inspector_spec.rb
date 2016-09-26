@@ -56,22 +56,36 @@ describe Eyeballs::Inspector do
 
     it 'generates explain queries' do
       expect(foo.explain_queries).to eql [
-        "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFER,FORMAT TEXT) SELECT \"foos\".* FROM \"foos\""
+        "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"foos\".* FROM \"foos\""
       ]
     end
 
     it 'generates explain queries for multiple queries' do
       expect(foo_bar.explain_queries).to eql [
-        "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFER,FORMAT TEXT) SELECT \"foos\".* FROM \"foos\"",
-        "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFER,FORMAT TEXT) SELECT \"bars\".* FROM \"bars\" WHERE \"bars\".\"foo_id\" IN (1)"
+        "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"foos\".* FROM \"foos\"",
+        "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"bars\".* FROM \"bars\" WHERE \"bars\".\"foo_id\" IN (1)"
       ]
     end
 
     it 'generates explain query given options and format' do
-
       expect(foo.explain_queries(format: :json, options: [:analyze])).to eql [
         "EXPLAIN (ANALYZE,FORMAT JSON) SELECT \"foos\".* FROM \"foos\""
       ]
+    end
+  end
+
+  describe :explain do
+    it 'runs explain query' do
+      explain_array = foo.explain
+      expect(explain_array.length).to eql 1
+      expect(explain_array[0]).to include "Seq Scan on public.foos  (cost="
+    end
+
+    it 'runs explain queries' do
+      explain_array = foo_bar.explain
+      expect(explain_array.length).to eql 2
+      expect(explain_array[0]).to include "Seq Scan on public.foos  (cost="
+      expect(explain_array[1]).to include "Seq Scan on public.bars  (cost="
     end
   end
 
