@@ -95,11 +95,20 @@ describe Eyeballs::Inspector do
 
   describe :to_hash do
     it 'returns hash' do
-       json_array = foo_bar.to_hash
+      json_array = foo_bar.to_hash
       expect(json_array.length).to eql 2
       expect(json_array[0][0]).to include('Plan')
       expect(json_array[1][0]).to include('Plan')
     end
+  end
+
+  describe :log_json do
+    it 'returns 2 json strings separated by new line' do
+      output = foo_bar.log_json
+      expect(output).to be_a(String)
+      expect(output.lines.count).to eql 2
+    end
+
   end
 
 end

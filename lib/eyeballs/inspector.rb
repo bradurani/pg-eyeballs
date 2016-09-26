@@ -42,6 +42,10 @@ module Eyeballs
       "Eyeballs::Inspector: #{@relation.to_s}"
     end
 
+    def log_json
+      to_hash.map { |h| h.to_json }.join("\n")
+    end
+
     private
 
     def query_array
