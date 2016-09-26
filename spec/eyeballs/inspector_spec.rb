@@ -46,8 +46,11 @@ describe Eyeballs::Inspector do
   end
 
   describe 'explain' do
-    it 'outputs explain' do
-      expect(Foo.all.eyeballs.explain).to include 'EXPLAIN for: SELECT "foos".* FROM "foos"'
+    it 'validates format' do
+      expect { Foo.all.eyeballs.explain(format: :tomp) }.to raise_error Eyeballs::UnknownFormatError 
+    end
+    it 'validates options' do
+      expect { Foo.all.eyeballs.explain(options: [:analyze, :explain]) }.to raise_error Eyeballs::UnknownOptionError
     end
   end
 end

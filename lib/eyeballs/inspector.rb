@@ -9,7 +9,7 @@ module Eyeballs
     end
 
     def explain(format: :text, options: OPTIONS)
-      validate_format!(formst)
+      validate_format!(format)
       validate_options!(options)
       @explain ||= queries.each do |query|
         explain_query(query)
@@ -41,14 +41,14 @@ module Eyeballs
     end
 
     def validate_format!(format)
-      unless format.in?(FORMATS)
+      unless FORMATS.include?(format)
         raise Eyeballs::UnknownFormatError, "Unknown Format #{format}" 
       end
     end
 
     def validate_options!(options)
       options.each do |option|
-        unless option.in?(OPTIONS)
+        unless OPTIONS.include?(option)
           raise Eyeballs::UnknownOptionError, "Unknown Option #{option}" 
         end
       end
@@ -56,3 +56,4 @@ module Eyeballs
 
 
   end
+end
