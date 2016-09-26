@@ -26,8 +26,11 @@ describe Eyeballs::Inspector do
   end
 
   describe :to_s do
-    it 'displays class string' do
-      expect(foo.to_s).to include 'Eyeballs::Inspector: #<Foo::ActiveRecord_Relation:0x'
+    context :foo_bar do
+      it 'concatenates the query plans with blank line' do
+        expect(foo_bar.to_s).to include 'Seq Scan on public.foos  (cost='
+        expect(foo_bar.to_s).to include 'Seq Scan on public.bars  (cost='
+      end
     end
   end
 
@@ -76,13 +79,9 @@ describe Eyeballs::Inspector do
   end
 
   describe :inspect do
-    context :foo do
-      it 'concatenates the query plans with blank line' do
-        expect(foo_bar.inspect).to include 'Seq Scan on public.foos  (cost='
-        expect(foo_bar.inspect).to include 'Seq Scan on public.bars  (cost='
-      end
+    it 'displays class string' do
+      expect(foo.inspect).to include 'Eyeballs::Inspector: #<Foo::ActiveRecord_Relation:0x'
     end
-
   end
 
 end

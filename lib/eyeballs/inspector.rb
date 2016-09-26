@@ -26,11 +26,15 @@ module Eyeballs
       @queries ||= query_array.flatten.select(&:present?)
     end
 
-    def inspect
+    def to_s
       explain.join("\n\n")
     end
 
-    def to_s
+    def to_json
+      explain(format: :json)
+    end
+
+    def inspect
       "Eyeballs::Inspector: #{@relation.to_s}"
     end
 
