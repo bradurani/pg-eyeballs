@@ -36,7 +36,7 @@ module Eyeballs
       explain(format: :json)
     end
 
-    def to_hash
+    def to_hash_array
       to_json.map { |json| JSON.parse(json) }
     end
 
@@ -45,7 +45,7 @@ module Eyeballs
     end
 
     def log_json
-      to_hash.map { |h| h.to_json }.join("\n")
+      to_hash_array.map { |h| h.to_json }.join("\n")
     end
 
     private

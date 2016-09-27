@@ -105,9 +105,9 @@ describe Eyeballs::Inspector do
     end
   end
 
-  describe :to_hash do
+  describe :to_hash_array do
     it 'returns hash' do
-      json_array = foo_bar.to_hash
+      json_array = foo_bar.to_hash_array
       expect(json_array.length).to eql 2
       expect(json_array[0][0]).to include('Plan')
       expect(json_array[1][0]).to include('Plan')

@@ -1,8 +1,9 @@
-# Eyeballs
+# pg-eyeballs
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/eyeballs`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+'pg-eyeballs' is a ruby gem that gives you detailed information about active
+record query execution. It gives you `EXPLAIN` output for all queries run by an
+active record relation in a way that is configurable and allows you to save
+the output to a file.
 
 ## Installation
 
@@ -19,6 +20,8 @@ And then execute:
 Or install it yourself as:
 
     $ gem install pg-eyeballs
+
+
 
 ## Usage
 
