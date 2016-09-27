@@ -9,8 +9,8 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Brad Urani"]
   spec.email         = ["bradurani@gmail.com"]
 
-  spec.summary       = 'A Ruby gem providing tools for peeping into PostgreSQL👀' 
-  spec.description   = 'A Ruby gem providing various tools for understanding what Postgres is doing when you Ruby'
+  spec.summary       = 'A Ruby gem for using the postgres explain command with Active Record' 
+  spec.description   = 'pg-eyeballs is a ruby gem that gives you detailed information about how the SQL queries created by the active record code you write are executed by the database. It gives you an easy, ruby friendly way to see the output of the Postgres EXPLAIN command and integrates with the popular query analysis tool gocmdpev'
   spec.homepage      = "http://github.com/bradurani/pg-eyeballs"
   spec.license       = "MIT"
 
