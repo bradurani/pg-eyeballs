@@ -2,10 +2,16 @@
 gocmdpev
 # pg-eyeballs
 
-`pg-eyeballs` is a ruby gem that gives you detailed information about active
-record query execution. It gives you `EXPLAIN` output for all queries run by an
-active record relation in a way that works well from the Rails console and works
-well with other query analysis tools.
+`pg-eyeballs` is a ruby gem that gives you detailed information about how the
+SQL queries created by the active record you write are executed by the database.
+It gives you an easy, ruby friendly way to see the output of Postgres'
+[`EXPLAIN` command](https://www.postgresql.org/docs/9.4/static/using-explain.html) and integrates with popular query analysis tools. Using it you can see:
+- What queries were run
+- How long the queries took to run
+- Which indexes were used
+- Which algorithms for used
+- Much more!
+
 
 ## Installation
 
