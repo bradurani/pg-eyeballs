@@ -21,11 +21,24 @@ Or install it yourself as:
 
     $ gem install pg-eyeballs
 
-
-
 ## Usage
 
-TODO: Write usage instructions here
+#### explain
+```ruby
+User.all.eyeballs.explain
+["Seq Scan on public.users  (cost=0.00..22.30 rows=1230 width=36) (actual time=0.002..0.002 rows=1 loops=1)\n  Output: id, email\n  Buffers: shared hit=1\nPlanning time: 0.014 ms\nExecution time: 0.009 ms"]
+```
+Most eyeballs methods return arrays because an `ActiveRecord::Relation` can run
+more than one query, for instance when it has a `preload` or with certain
+subqueries
+```ruby
+User.all.preload(:profiles).eyeballs.explain
+
+["Seq Scan on public.users  (cost=0.00..22.30 rows=1230 width=36) (actual time=0.002..0.002 rows=1 loops=1)\n  Output: id, email\n  Buffers: shared hit=1\nPlanning time: 0.013 ms\nExecution time: 0.009 ms", "Seq Scan on public.profiles  (cost=0.00..36.75 rows=11 width=8) (actual time=0.003..0.003 rows=1 loops=1)\n  Output: id, user_id\n  Filter: (profiles.user_id = 1)\n  Buffers: shared hit=1\nPlanning time: 0.019 ms\nExecution time: 0.009 ms"]
+```
+####
+
+
 
 ## Development
 
