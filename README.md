@@ -180,10 +180,26 @@ Planning time: 0.013 ms
 Execution time: 0.006 ms"
 ```
 
-## On the command line
+## Integration with `gocmdpev`
 
-`pg-eyeballs` works great on the command line with `rails runner` and analysis
-tools like [`gocmdpev`](https://github.com/simon-engledew/gocmdpev)
+`pg-eyeballs` integrates with
+[`gocmdpev`](https://github.com/simon-engledew/gocmdpev). If you have `gocmdpev`
+installed, you can use it in your Rails console:
+
+
+![gocmdpev](/bradurani/gocmdpev/tree/master/gocmdpev2/png?raw=true "Using
+gocmdpev in the Rails console")
+
+You can also use `pg-eyeballs` and `gocmdpev` together from the command line.
+First, alias the included command. From inside the directory of you Rails
+project run
+```bash
+alias eyeballs=$(bundle show pg-eyeballs)/bin/gocmdpev
+```
+To use, also from inside your Rails project directory:
+```bash
+eyeballs User.preload(:profiles)
+```
 
 
 ## Development
