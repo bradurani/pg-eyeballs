@@ -95,7 +95,7 @@ User.all.preload(:profiles).eyeballs.queries
 
 ### to_hash_array(options: [:analyze, :verbose, :costs, :buffers])
 ```ruby
-User.all.preload(:profiles).eyeballs.to_hash_array
+User.all.eyeballs.to_hash_array
 [[{"Plan"=>{
     "Node Type"=>"Seq Scan",
     "Relation Name"=>"users",
@@ -124,38 +124,7 @@ User.all.preload(:profiles).eyeballs.to_hash_array
     "I/O Write Time"=>0.0},
     "Planning Time"=>0.014,
     "Triggers"=>[],
-    "Execution Time"=>0.007}],
-[{"Plan"=>{
-    "Node Type"=>"Seq Scan",
-    "Relation Name"=>"profiles",
-    "Schema"=>"public",
-    "Alias"=>"profiles",
-    "Startup Cost"=>0.0,
-    "Total Cost"=>36.75,
-    "Plan Rows"=>11,
-    "Plan Width"=>8,
-    "Actual Startup Time"=>0.003,
-    "Actual Total Time"=>0.004,
-    "Actual Rows"=>1,
-    "Actual Loops"=>1,
-    "Output"=>["id", "user_id"],
-    "Filter"=>"(profiles.user_id = 1)",
-    "Rows Removed by Filter"=>0,
-    "Shared Hit Blocks"=>1,
-    "Shared Read Blocks"=>0,
-    "Shared Dirtied Blocks"=>0,
-    "Shared Written Blocks"=>0,
-    "Local Hit Blocks"=>0,
-    "Local Read Blocks"=>0,
-    "Local Dirtied Blocks"=>0,
-    "Local Written Blocks"=>0,
-    "Temp Read Blocks"=>0,
-    "Temp Written Blocks"=>0,
-    "I/O Read Time"=>0.0,
-    "I/O Write Time"=>0.0},
-    "Planning Time"=>0.02,
-    "Triggers"=>[],
-    "Execution Time"=>0.01}]
+    "Execution Time"=>0.007}]
 ]
 ```
 
@@ -196,7 +165,7 @@ project run
 ```bash
 alias eyeballs=$(bundle show pg-eyeballs)/bin/gocmdpev
 ```
-To use, also from inside your Rails project directory:
+To use, also from inside your Rails project directory, run
 ```bash
 eyeballs User.preload(:profiles)
 ```
