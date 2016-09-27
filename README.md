@@ -39,30 +39,30 @@ subqueries
 ```ruby
 User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
 ["- Plan: 
-  Node Type: \"Seq Scan\"
-  Relation Name: \"users\"
-  Schema: \"public\"
-  Alias: \"users\"
-  Startup Cost: 0.00
-  Total Cost: 22.30
-  Plan Rows: 1230
-  Plan Width: 36
-  Output: 
-     - \"id\"
-     - \"email\"", 
-  "- Plan:     
-    Node Type: \"Seq Scan\"
-    Relation Name: \"profiles\"
-    Schema: \"public\"
-    Alias: \"profiles\"
-    Startup Cost: 0.00\
-    Total Cost: 36.75
-    Plan Rows: 11
-    Plan Width: 8
-    Output: 
-      - \"id\"
-      - \"user_id\"
-      Filter: \"(profiles.user_id = 1)\""
+      Node Type: "Seq Scan"
+      Relation Name: "users"
+      Schema: "public"
+      Alias: "users"
+      Startup Cost: 0.00
+      Total Cost: 22.30
+      Plan Rows: 1230
+      Plan Width: 36
+      Output: 
+      - "id"
+      - "email"", 
+ "- Plan:     
+      Node Type: "Seq Scan"
+      Relation Name: "profiles"
+      Schema: "public"
+      Alias: "profiles"
+      Startup Cost: 0.00\
+      Total Cost: 36.75
+      Plan Rows: 11
+      Plan Width: 8
+      Output: 
+        - "id"
+        - "user_id"
+        Filter: "(profiles.user_id = 1)""
 ]
 ```
 **formats:** :text, :xml, :json, :yaml
