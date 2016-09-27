@@ -88,6 +88,10 @@ describe Eyeballs::Inspector do
     it 'interpolates SQL args' do
       expect(Foo.where(id: 1).eyeballs.explain[0]).to include "Index Scan using foos_pkey"
     end
+
+    it 'works with most data types' do
+      expect(Baz.where(id: 1, name: 'brad', d: Date.parse('2016-08-25'), t: Time.now, b: true, n: 3.14).eyeballs.explain).to be_a Array
+    end
   end
 
   describe :inspect do
@@ -119,7 +123,6 @@ describe Eyeballs::Inspector do
       output = foo_bar.log_json
       expect(output).to be_nil
     end
-
   end
 
 end

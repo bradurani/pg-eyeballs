@@ -10,6 +10,9 @@ class Bar < ActiveRecord::Base
   belongs_to :foo
 end
 
+class Baz < ActiveRecord::Base
+end
+
 RSpec.configure do |config|
   config.before(:suite) do
     connection_opts = {
@@ -24,6 +27,7 @@ RSpec.configure do |config|
 
     ActiveRecord::Base.connection.execute 'DROP TABLE IF EXISTS bars;'
     ActiveRecord::Base.connection.execute 'DROP TABLE IF EXISTS foos;'
+    ActiveRecord::Base.connection.execute 'DROP TABLE IF EXISTS bazs;'
 
     ActiveRecord::Base.connection.execute <<-SQL
       CREATE TABLE foos (
@@ -42,6 +46,19 @@ RSpec.configure do |config|
     SQL
     ActiveRecord::Base.connection.execute 'INSERT INTO bars VALUES (1,1, \'one\')'
 
+    ActiveRecord::Base.connection.execute <<-SQL
+      CREATE TABLE bazs (
+        id INTEGER NOT NULL PRIMARY KEY,
+        name TEXT,
+        d date,
+        t time,
+        ts timestamp,
+        b boolean,
+        n numeric
+      );
+    SQL
+    ActiveRecord::Base.connection.execute "INSERT INTO bazs VALUES (1, 'brad','2016-08-25',NOW(),TIMESTAMP '2011-05-16 15:36:38', TRUE, 3.14)"
+    
     DatabaseCleaner.strategy = :transaction
   end 
 
