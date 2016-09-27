@@ -40,8 +40,9 @@ User.all.preload(:profiles).eyeballs.explain
 ["Seq Scan on public.users  (cost=0.00..22.30 rows=1230 width=36) (actual time=0.002..0.002 rows=1 loops=1)
     Output: id, email
     Buffers: shared hit=1
-    Planning time: 0.013 ms
-    Execution time: 0.009 ms", "Seq Scan on public.profiles  (cost=0.00..36.75 rows=11 width=8) (actual time=0.003..0.003 rows=1 loops=1)
+  Planning time: 0.013 ms
+  Execution time: 0.009 ms",
+ "Seq Scan on public.profiles  (cost=0.00..36.75 rows=11 width=8) (actual time=0.003..0.003 rows=1 loops=1)
     Output: id, user_id
     Filter: (profiles.user_id = 1)
     Buffers: shared hit=1
