@@ -187,7 +187,7 @@ Execution time: 0.006 ms"
 installed, you can use it in your Rails console:
 
 
-![gocmdpev](/bradurani/gocmdpev/tree/master/gocmdpev2/png?raw=true "Using
+![gocmdpev](https://raw.githubusercontent.com/bradurani/pg-eyeballs/master/gocmdpev2.png "Using
 gocmdpev in the Rails console")
 
 You can also use `pg-eyeballs` and `gocmdpev` together from the command line.
