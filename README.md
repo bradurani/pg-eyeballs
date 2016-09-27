@@ -38,9 +38,7 @@ more than one query, for instance when it has a `preload` or with certain
 subqueries
 ```ruby
 User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
-```
-```
-["- Plan: 
+['- Plan: 
       Node Type: "Seq Scan"
       Relation Name: "users"
       Schema: "public"
@@ -51,7 +49,7 @@ User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
       Plan Width: 36
       Output: 
       - "id"
-      - "email"", 
+      - "email"', 
  "- Plan:     
       Node Type: "Seq Scan"
       Relation Name: "profiles"
@@ -64,7 +62,7 @@ User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
       Output: 
         - "id"
         - "user_id"
-        Filter: "(profiles.user_id = 1)""
+        Filter: "(profiles.user_id = 1)"'
 ]
 ```
 **formats:** :text, :xml, :json, :yaml
