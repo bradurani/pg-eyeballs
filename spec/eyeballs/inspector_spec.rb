@@ -117,8 +117,7 @@ describe Eyeballs::Inspector do
   describe :log_json do
     it 'returns 2 json strings separated by new line' do
       output = foo_bar.log_json
-      expect(output).to be_a(String)
-      expect(output.lines.count).to eql 2
+      expect(output).to be_nil
     end
 
   end

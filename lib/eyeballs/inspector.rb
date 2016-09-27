@@ -46,6 +46,7 @@ module Eyeballs
 
     def log_json(options: OPTIONS)
       to_hash_array.each { |h| puts "#{h.to_json }" }
+      nil
     end
 
     def gocmdpev

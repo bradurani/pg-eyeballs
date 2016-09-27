@@ -2,8 +2,8 @@
 
 `pg-eyeballs` is a ruby gem that gives you detailed information about active
 record query execution. It gives you `EXPLAIN` output for all queries run by an
-active record relation in a way that is configurable and allows you to save
-the output to a file.
+active record relation in a way that works well from the Rails console and works
+well with other query analysis tools.
 
 ## Installation
 
@@ -35,7 +35,7 @@ User.all.eyeballs.explain
   Execution time: 0.009 ms"
 ]
 ```
-Most eyeballs methods return arrays because an `ActiveRecord::Relation` can run
+Most eyeballs methods return an array because an `ActiveRecord::Relation` can run
 more than one query, for instance when it has a `preload` or with certain
 subqueries
 ```ruby
@@ -64,7 +64,7 @@ User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
       Output: 
         - "id"
         - "user_id"
-        Filter: "(profiles.user_id = 1)"'
+      Filter: "(profiles.user_id = 1)"'
 ]
 ```
 **formats:** :text, :xml, :json, :yaml
@@ -83,7 +83,6 @@ processing with [`xargs`](https://linux.die.net/man/1/xargs) and [`jq`](https://
 [`gocmdpev`](https://github.com/simon-engledew/gocmdpev)
 ```ruby
 User.all.preload(:profiles).eyeballs.log_json
-"[{\"Plan\":{\"Node Type\":\"Seq Scan\",\"Relation Name\":\"users\",\"Schema\":\"public\",\"Alias\":\"users\",\"Startup Cost\":0.0,\"Total Cost\":22.3,\"Plan Rows\":1230,\"Plan Width\":36,\"Actual Startup Time\":0.001,\"Actual Total Time\":0.001,\"Actual Rows\":1,\"Actual Loops\":1,\"Output\":[\"id\",\"email\"],\"Shared Hit Blocks\":1,\"Shared Read Blocks\":0,\"Shared Dirtied Blocks\":0,\"Shared Written Blocks\":0,\"Local Hit Blocks\":0,\"Local Read Blocks\":0,\"Local Dirtied Blocks\":0,\"Local Written Blocks\":0,\"Temp Read Blocks\":0,\"Temp Written Blocks\":0,\"I/O Read Time\":0.0,\"I/O Write Time\":0.0},\"Planning Time\":0.014,\"Triggers\":[],\"Execution Time\":0.008}]\n[{\"Plan\":{\"Node Type\":\"Seq Scan\",\"Relation Name\":\"profiles\",\"Schema\":\"public\",\"Alias\":\"profiles\",\"Startup Cost\":0.0,\"Total Cost\":36.75,\"Plan Rows\":11,\"Plan Width\":8,\"Actual Startup Time\":0.003,\"Actual Total Time\":0.003,\"Actual Rows\":1,\"Actual Loops\":1,\"Output\":[\"id\",\"user_id\"],\"Filter\":\"(profiles.user_id = 1)\",\"Rows Removed by Filter\":0,\"Shared Hit Blocks\":1,\"Shared Read Blocks\":0,\"Shared Dirtied Blocks\":0,\"Shared Written Blocks\":0,\"Local Hit Blocks\":0,\"Local Read Blocks\":0,\"Local Dirtied Blocks\":0,\"Local Written Blocks\":0,\"Temp Read Blocks\":0,\"Temp Written Blocks\":0,\"I/O Read Time\":0.0,\"I/O Write Time\":0.0},\"Planning Time\":0.02,\"Triggers\":[],\"Execution Time\":0.01}]"
 ```
 
 ### queries
@@ -154,7 +153,9 @@ Execution time: 0.006 ms"
 `pg-eyeballs` integrates with
 [`gocmdpev`](https://github.com/simon-engledew/gocmdpev). If you have `gocmdpev`
 installed, you can use it in your Rails console:
-
+```ruby
+User.all.preload(:profiles).eyeballs.gocmdpev
+```
 
 ![gocmdpev](https://raw.githubusercontent.com/bradurani/pg-eyeballs/master/gocmdpev.png "Using
 gocmdpev in the Rails console")
@@ -169,7 +170,6 @@ To use, also from inside your Rails project directory, run
 ```bash
 eyeballs User.preload(:profiles)
 ```
-
 
 ## Development
 
