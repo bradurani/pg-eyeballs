@@ -28,7 +28,7 @@ module Eyeballs
       end
     end
 
-    def to_s
+    def to_s(options: OPTIONS)
       explain.join("\n\n")
     end
 
