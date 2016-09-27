@@ -9,7 +9,7 @@ module Eyeballs
     end
 
     def explain(format: :text, options: OPTIONS)
-      explain_queries(format: format, options: options).map do |query|
+      @explain ||= explain_queries(format: format, options: options).map do |query|
         run_query(query)
       end
     end
@@ -17,7 +17,7 @@ module Eyeballs
     def explain_queries(format: :text, options: OPTIONS)
       validate_format!(format)
       validate_options!(options)
-      @explain ||= queries.map do |query|
+      @explain_queries ||= queries.map do |query|
         explain_query(query, format, options)
       end
     end
@@ -32,19 +32,19 @@ module Eyeballs
       explain.join("\n\n")
     end
 
-    def to_json
-      explain(format: :json)
+    def to_json(options: OPTIONS)
+      explain(options: options, format: :json)
     end
 
-    def to_hash_array
-      to_json.map { |json| JSON.parse(json) }
+    def to_hash_array(options: OPTIONS)
+      to_json(options: options).map { |json| JSON.parse(json) }
     end
 
     def inspect
       "Eyeballs::Inspector: #{@relation.to_s}"
     end
 
-    def log_json
+    def log_json(options: OPTIONS)
       to_hash_array.map { |h| h.to_json }.join("\n")
     end
 

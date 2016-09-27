@@ -1,6 +1,6 @@
 $LOAD_PATH.unshift File.expand_path('../../lib', __FILE__)
 
-require 'eyeballs'
+require 'pg-eyeballs'
 require 'database_cleaner'
 
 class Foo < ActiveRecord::Base
