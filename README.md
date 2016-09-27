@@ -23,9 +23,11 @@ Or install it yourself as:
 
 ## Usage
 
-#### explain
+#### explain(format: [:analyze, :verbose, :costs, :buffers
+], format: :text)
 ```ruby
 User.all.eyeballs.explain
+
 ["Seq Scan on public.users  (cost=0.00..22.30 rows=1230 width=36) (actual time=0.002..0.002 rows=1 loops=1)
     Output: id, email
     Buffers: shared hit=1
@@ -49,7 +51,8 @@ User.all.preload(:profiles).eyeballs.explain
   Planning time: 0.019 ms
   Execution time: 0.009 ms"]
 ```
-####
+
+
 
 
 
