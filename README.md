@@ -23,7 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-#### explain(options: [:analyze, :verbose, :costs, :buffers], format: :text)
+### explain(options: [:analyze, :verbose, :costs, :buffers], format: :text)
 
 ```ruby
 User.all.eyeballs.explain
@@ -69,7 +69,7 @@ User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
 ```
 **formats:** :text, :xml, :json, :yaml
 
-#### explain_queries(options: [:analyze, :verbose, :costs, :buffers], format: :text)
+### explain_queries(options: [:analyze, :verbose, :costs, :buffers], format: :text)
 ```ruby
 User.all.preload(:profiles).eyeballs.explain_queries
 ["EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"users\".* FROM \"users\"",
@@ -77,17 +77,17 @@ User.all.preload(:profiles).eyeballs.explain_queries
  ```
 **formats:** :text, :xml, :json, :yaml
 
-#### queries
+### queries
 ```ruby
 User.all.preload(:profiles).eyeballs.queries
 ["SELECT \"users\".* FROM \"users\"",
  "SELECT \"profiles\".* FROM \"profiles\" WHERE \"profiles\".\"user_id\" IN (1)"]
  ```
 
-#### to_json(options: [:analyze, :verbose, :costs, :buffers])
+### to_json(options: [:analyze, :verbose, :costs, :buffers])
 **alias for** `explain(format: :json)`
 
-#### to_s(options: [:analyze, :verbose, :costs, :buffers])
+### to_s(options: [:analyze, :verbose, :costs, :buffers])
 
 ```ruby
 User.all.preload(:profiles).eyeballs.to_s
@@ -105,7 +105,7 @@ Planning time: 0.013 ms
 Execution time: 0.006 ms"
 ```
 
-#### to_hash_array(options: [:analyze, :verbose, :costs, :buffers])
+### to_hash_array(options: [:analyze, :verbose, :costs, :buffers])
 ```ruby
 User.all.preload(:profiles).eyeballs.to_hash_array
 [[{"Plan"=>{
