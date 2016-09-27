@@ -38,6 +38,8 @@ more than one query, for instance when it has a `preload` or with certain
 subqueries
 ```ruby
 User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
+```
+```
 ["- Plan: 
       Node Type: "Seq Scan"
       Relation Name: "users"
