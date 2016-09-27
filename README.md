@@ -1,17 +1,15 @@
 [![CircleCI](https://circleci.com/gh/bradurani/pg-eyeballs.svg?style=svg)](https://circleci.com/gh/bradurani/pg-eyeballs)
-gocmdpev
-# pg-eyeballs
+# pg-eyeballs 👀
 
 `pg-eyeballs` is a ruby gem that gives you detailed information about how the
-SQL queries created by the active record you write are executed by the database.
-It gives you an easy, ruby friendly way to see the output of Postgres'
-[`EXPLAIN` command](https://www.postgresql.org/docs/9.4/static/using-explain.html) and integrates with popular query analysis tools. Using it you can see:
+SQL queries created by the active record code you write are executed by the database.
+It gives you an easy, ruby friendly way to see the output of the Postgres
+[`EXPLAIN` command](https://www.postgresql.org/docs/9.4/static/using-explain.html) and integrates with popular query analysis tool [`gocmdpev`](https://github.com/simon-engledew/gocmdpev). Using it you can see:
 - What queries were run
-- How long the queries took to run
+- How long they took
 - Which indexes were used
-- Which algorithms for used
+- Which algorithms were used
 - Much more!
-
 
 ## Installation
 
