@@ -169,8 +169,15 @@ User.all.preload(:profiles).eyeballs.to_hash_array
     "Triggers"=>[],
     "Execution Time"=>0.01}]
 ]
-
-
+```
+###log_json(options: [:analyze, :verbose, :costs, :buffers])
+Prints each JSON plan on a separate line. This is useful for command line
+parsing with `xargs` and [`jq`](https://stedolan.github.io/jq/) or
+[`gocmdpev`](https://github.com/simon-engledew/gocmdpev)
+```ruby
+User.all.preload(:profiles).eyeballs.log_json
+"[{\"Plan\":{\"Node Type\":\"Seq Scan\",\"Relation Name\":\"users\",\"Schema\":\"public\",\"Alias\":\"users\",\"Startup Cost\":0.0,\"Total Cost\":22.3,\"Plan Rows\":1230,\"Plan Width\":36,\"Actual Startup Time\":0.001,\"Actual Total Time\":0.001,\"Actual Rows\":1,\"Actual Loops\":1,\"Output\":[\"id\",\"email\"],\"Shared Hit Blocks\":1,\"Shared Read Blocks\":0,\"Shared Dirtied Blocks\":0,\"Shared Written Blocks\":0,\"Local Hit Blocks\":0,\"Local Read Blocks\":0,\"Local Dirtied Blocks\":0,\"Local Written Blocks\":0,\"Temp Read Blocks\":0,\"Temp Written Blocks\":0,\"I/O Read Time\":0.0,\"I/O Write Time\":0.0},\"Planning Time\":0.014,\"Triggers\":[],\"Execution Time\":0.008}]\n[{\"Plan\":{\"Node Type\":\"Seq Scan\",\"Relation Name\":\"profiles\",\"Schema\":\"public\",\"Alias\":\"profiles\",\"Startup Cost\":0.0,\"Total Cost\":36.75,\"Plan Rows\":11,\"Plan Width\":8,\"Actual Startup Time\":0.003,\"Actual Total Time\":0.003,\"Actual Rows\":1,\"Actual Loops\":1,\"Output\":[\"id\",\"user_id\"],\"Filter\":\"(profiles.user_id = 1)\",\"Rows Removed by Filter\":0,\"Shared Hit Blocks\":1,\"Shared Read Blocks\":0,\"Shared Dirtied Blocks\":0,\"Shared Written Blocks\":0,\"Local Hit Blocks\":0,\"Local Read Blocks\":0,\"Local Dirtied Blocks\":0,\"Local Written Blocks\":0,\"Temp Read Blocks\":0,\"Temp Written Blocks\":0,\"I/O Read Time\":0.0,\"I/O Write Time\":0.0},\"Planning Time\":0.02,\"Triggers\":[],\"Execution Time\":0.01}]"
+```
 
 
 ## Development
