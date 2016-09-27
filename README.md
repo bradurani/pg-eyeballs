@@ -23,8 +23,7 @@ Or install it yourself as:
 
 ## Usage
 
-#### explain(format: [:analyze, :verbose, :costs, :buffers
-], format: :text)
+#### explain(format: [:analyze, :verbose, :costs, :buffers], format: :text)
 ```ruby
 User.all.eyeballs.explain
 
