@@ -79,7 +79,7 @@ User.all.preload(:profiles).eyeballs.explain_queries
 
 ### log_json(options: [:analyze, :verbose, :costs, :buffers])
 Prints each JSON plan on a separate line. This is useful for command line
-processing with `[xargs`](https://linux.die.net/man/1/xargs) and [`jq`](https://stedolan.github.io/jq/) or
+processing with [`xargs`](https://linux.die.net/man/1/xargs) and [`jq`](https://stedolan.github.io/jq/) or
 [`gocmdpev`](https://github.com/simon-engledew/gocmdpev)
 ```ruby
 User.all.preload(:profiles).eyeballs.log_json
@@ -180,6 +180,10 @@ Planning time: 0.013 ms
 Execution time: 0.006 ms"
 ```
 
+## On the command line
+
+`pg-eyeballs` works great on the command line with `rails runner` and analysis
+tools like [`gocmdpev`](https://github.com/simon-engledew/gocmdpev)
 
 
 ## Development

@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+bundle exec rails runner "$1.eyeballs.log_json" | while read x; do echo $x | gocmdpev; echo; done

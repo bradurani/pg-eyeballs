@@ -45,7 +45,7 @@ module Eyeballs
     end
 
     def log_json(options: OPTIONS)
-      to_hash_array.map { |h| h.to_json }.join("\n")
+      to_hash_array.each { |h| puts "#{h.to_json }" }
     end
 
     private
