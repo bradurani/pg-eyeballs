@@ -48,6 +48,13 @@ module Eyeballs
       to_hash_array.each { |h| puts "#{h.to_json }" }
     end
 
+    def gocmdpev
+      to_hash_array.each do |h|
+        system("echo '#{h.to_json}' | gocmdpev")
+      end
+      nil 
+    end
+
     private
 
     def query_array
