@@ -23,9 +23,9 @@ module Eyeballs
     end
 
     def queries
-      @queries ||= query_array.map do |query_binding|
-        build_sql(query_binding)
-      end
+      @relation.connection.to_sql(query_array).map { |query|
+        build_sql(query)
+      }
     end
 
     def to_s(options: OPTIONS)
@@ -53,7 +53,7 @@ module Eyeballs
       to_hash_array.each do |h|
         system("echo '#{h.to_json}' | gocmdpev")
       end
-      nil 
+      nil
     end
 
     private
@@ -66,20 +66,20 @@ module Eyeballs
 
     def validate_format!(format)
       unless FORMATS.include?(format)
-        raise Eyeballs::UnknownFormatError, "Unknown Format #{format}" 
+        raise Eyeballs::UnknownFormatError, "Unknown Format #{format}"
       end
     end
 
     def validate_options!(options)
       options.each do |option|
         unless OPTIONS.include?(option)
-          raise Eyeballs::UnknownOptionError, "Unknown Option #{option}" 
+          raise Eyeballs::UnknownOptionError, "Unknown Option #{option}"
         end
       end
     end
 
     def explain_query(query, format, options)
-      "EXPLAIN (#{explain_options(format, options)}) #{query}" 
+      "EXPLAIN (#{explain_options(format, options)}) #{query}"
     end
 
     def explain_options(format, options)
@@ -91,14 +91,8 @@ module Eyeballs
     end
 
     def build_sql(query_binding)
-      sql = query_binding[0]
-      values = query_binding[1].map do |b|
-        cast_type = b[0].cast_type
-        cast_value = cast_type.type_cast_for_database(b[1])
-        quoted_value = @relation.connection.quote(cast_value)
-      end
-      values.each.with_index.reduce(sql) do |sql,(value, index)|
-        sql.sub("$#{index + 1}", value.to_s)
+      query_binding[1].each.with_index.reduce(query_binding[0]) do |sql,(value, index)|
+        sql.sub("$#{index + 1}", @relation.connection.quote(value.last))
       end
     end
   end
