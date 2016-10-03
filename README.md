@@ -179,6 +179,11 @@ To use, also from inside your Rails project directory, run
 eyeballs User.preload(:profiles)
 ```
 
+## Compatibility
+
+`pg-eyeballs` has been tested with Rails versions 4 and 5. It may work on
+earlier versions, but I haven't tried it.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
