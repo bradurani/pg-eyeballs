@@ -50,10 +50,16 @@ describe Eyeballs::Inspector do
     end
 
     it 'generates explain queries for multiple queries' do
-      expect(foo_bar.explain_queries).to eql [
+      result = foo_bar.explain_queries
+      rails4version = [
         "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"foos\".* FROM \"foos\"",
         "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"bars\".* FROM \"bars\" WHERE \"bars\".\"foo_id\" IN (1)"
       ]
+      rails5version = [
+        "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"foos\".* FROM \"foos\"",
+        "EXPLAIN (ANALYZE,VERBOSE,COSTS,BUFFERS,FORMAT TEXT) SELECT \"bars\".* FROM \"bars\" WHERE \"bars\".\"foo_id\" = 1"
+      ]
+      expect(result == rails4version || result == rails5version).to be true
     end
 
     it 'generates explain query given options and format' do

@@ -92,8 +92,17 @@ module Eyeballs
 
     def build_sql(query_binding)
       query_binding[1].each.with_index.reduce(query_binding[0]) do |sql,(value, index)|
-        sql.sub("$#{index + 1}", @relation.connection.quote(value.last))
+        sql.sub("$#{index + 1}", @relation.connection.quote(extract_value(value)))
       end
     end
+
+    def extract_value(value)
+      if value.is_a?(Array) #Rails 4
+        value.last
+      elsif value.is_a?(ActiveRecord::Relation::QueryAttribute) #Rails 5
+        value.value
+      end
+    end
+
   end
 end
