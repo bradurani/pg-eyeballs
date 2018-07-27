@@ -4,7 +4,7 @@
 `pg-eyeballs` is a ruby gem that gives you detailed information about how the
 SQL queries created by the active record code you write are executed by the database.
 It gives you an easy, ruby friendly way to see the output of the Postgres
-[`EXPLAIN` command](https://www.postgresql.org/docs/9.4/static/using-explain.html) and integrates with the popular query analysis tool [`gocmdpev`](https://github.com/simon-engledew/gocmdpev). 
+[`EXPLAIN` command](https://www.postgresql.org/docs/9.4/static/using-explain.html) and integrates with the popular query analysis tool [`gocmdpev`](https://github.com/simon-engledew/gocmdpev).
 
 Using it you can see:
 - What queries were run
@@ -48,7 +48,7 @@ more than one query, for instance when it has a `preload` or with certain
 subqueries
 ```ruby
 User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
-['- Plan: 
+['- Plan:
       Node Type: "Seq Scan"
       Relation Name: "users"
       Schema: "public"
@@ -57,10 +57,10 @@ User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
       Total Cost: 22.30
       Plan Rows: 1230
       Plan Width: 36
-      Output: 
+      Output:
       - "id"
-      - "email"', 
- '- Plan:     
+      - "email"',
+ '- Plan:
       Node Type: "Seq Scan"
       Relation Name: "profiles"
       Schema: "public"
@@ -69,7 +69,7 @@ User.all.preload(:profiles).eyeballs.explain(options: [:verbose], format: :yaml)
       Total Cost: 36.75
       Plan Rows: 11
       Plan Width: 8
-      Output: 
+      Output:
         - "id"
         - "user_id"
       Filter: "(profiles.user_id = 1)"'
@@ -179,6 +179,11 @@ To use, also from inside your Rails project directory, run
 eyeballs User.preload(:profiles)
 ```
 
+## Compatibility
+
+`pg-eyeballs` has been tested with Rails versions 4 and 5. It may work on
+earlier versions, but I haven't tried it.
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
@@ -189,8 +194,13 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/bradurani/pg-eyeballs. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
 
+### Running the tests
+
+First, `bundle install`. After this, if you are using the default
+database, first thing is to run `createdb eyeballs_test`. After this
+you can run the tests with `rake`.
+
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
