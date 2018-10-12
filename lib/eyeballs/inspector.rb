@@ -1,3 +1,5 @@
+require 'tempfile'
+
 module Eyeballs
   class Inspector
 
@@ -51,7 +53,15 @@ module Eyeballs
 
     def gocmdpev
       to_hash_array.each do |h|
-        system("echo '#{h.to_json}' | gocmdpev")
+        begin
+          tmp = Tempfile.new('pg-eyeballs')
+          tmp.write(h.to_json)
+          tmp.close
+          system("cat #{tmp.path} | gocmdpev")
+        ensure
+          tmp.close
+          tmp.unlink
+        end
       end
       nil
     end
