@@ -6,7 +6,6 @@ gem "pry"
 gem "pry-byebug"
 gem "awesome_print"
 gem "appraisal"
-gem "activerecord", ">= 5.0.0", "< 6.0.0"
-gem "pg", ">= 0.19.0", "< 1.0.0"
+gem "activerecord", ">= 6.0.0", "< 7.0.0"
 
 gemspec path: "../"
