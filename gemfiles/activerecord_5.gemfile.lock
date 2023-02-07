@@ -1,8 +1,8 @@
 PATH
   remote: ..
   specs:
-    pg-eyeballs (1.2.0)
-      activerecord (>= 4.0, < 7.0)
+    pg-eyeballs (1.3.0)
+      activerecord (>= 4.0, < 8.0)
       pg
 
 GEM
