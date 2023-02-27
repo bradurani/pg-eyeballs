@@ -109,10 +109,9 @@ module Eyeballs
     def extract_value(value)
       if value.is_a?(Array) #Rails 4
         value.last
-      elsif value.is_a?(ActiveRecord::Relation::QueryAttribute) #Rails 5
+      elsif value.respond_to?(:value) #Rails 5
         value.value
       end
     end
-
   end
 end
